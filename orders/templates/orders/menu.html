@@ -1,0 +1,339 @@
+{% extends 'orders/base.html' %}
+
+{% block body %}
+  <div class="justify-content-center">
+    <ul class="nav nav-pills mb-3 justify-content-center menu-nav" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-pizza" role="tab" aria-controls="pills-pizza" aria-selected="true">Pizza</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-subs" role="tab" aria-controls="pills-subs" aria-selected="false">Subs</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-othersubs" role="tab" aria-controls="pills-othersubs" aria-selected="false">Other subs</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-pasta" role="tab" aria-controls="pills-pasta" aria-selected="true">Pasta</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-salads" role="tab" aria-controls="pills-salads" aria-selected="true">Salads</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-dinnerplatters" role="tab" aria-controls="pills-dinnerplatters" aria-selected="true">Dinner platters</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-pizza-toppings" role="tab" aria-controls="pills-pizza-toppings" aria-selected="true">Toppings</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-pizza" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Regular Pizza</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th scope="col">Pizza</th>
+                  <th scope="col">Small</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for pizza in rgl_sm_pizza %}
+                  <tr>
+                    <th>{{ pizza.name }}</th>
+                    <th>{{ pizza.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-1" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th scope="col">Large</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for pizza in rgl_lg_pizza %}
+                  <tr>
+                    <th>{{ pizza.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Sicilian Pizza</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th scope="col">Pizza</th>
+                  <th scope="col">Small</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for pizza in scln_sm_pizza %}
+                  <tr>
+                    <th>{{ pizza.name }}</th>
+                    <th>{{ pizza.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-1" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th scope="col">Large</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for pizza in scln_lg_pizza %}
+                  <tr>
+                    <th>{{ pizza.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade justify-content-center" id="pills-subs" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Subs</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Sub</th>
+                  <th>Small</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for sub in sm_sub %}
+                  <tr>
+                    <th>{{ sub.name }}</th>
+                    <th>{{ sub.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-1" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Large</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for sub in lg_sub %}
+                  <tr>
+                    <th>{{ sub.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade justify-content-center" id="pills-othersubs" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Other subs</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Sub</th>
+                  <th>Small</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for sub in other_sm_sub %}
+                  <tr>
+                    <th>{{ sub.name }}</th>
+                    {% if sub.price != 0.00 %}
+                      <th>${{ sub.price }}</th>
+                    {% else %}
+                      <th>-</th>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-1" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Large</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for sub in other_lg_sub %}
+                  <tr>
+                    <th>{{ sub.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade justify-content-center" id="pills-pasta" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Pasta</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-3" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Pasta</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for pasta in pasta %}
+                  <tr>
+                    <th>{{ pasta.name }}</th>
+                    <th>{{ pasta.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade justify-content-center" id="pills-salads" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Salad</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-3" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Salad</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for salad in salad %}
+                  <tr>
+                    <th>{{ salad.name }}</th>
+                    <th>{{ salad.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade justify-content-center" id="pills-dinnerplatters" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="row justify-content-center">
+          <h1 class="display-4 title">Dinner platters</h1>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Dinner</th>
+                  <th>Small</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for dinner in sm_dinner %}
+                  <tr>
+                    <th>{{ dinner.name }}</th>
+                    <th>{{ dinner.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-1" style="padding: 0">
+            <table class="table menu-table">
+              <thead class="menu-thead">
+                <tr>
+                  <th>Large</th>
+                </tr>
+              </thead>
+              <tbody class="menu-tbody">
+                {% for dinner in lg_dinner %}
+                  <tr>
+                    <th>{{ dinner.price }} $</th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade justify-content-center" id="pills-pizza-toppings" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <div class="row justify-content-center">
+          <div class="col-sm-3">
+            <div class="row justify-content-center">
+              <h1 class="display-4 title">Pizza toppings</h1>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-2" style="padding: 0">
+                <table class="table menu-table">
+                  <thead class="menu-thead">
+                    <tr>
+                      <th>Topping name</th>
+                    </tr>
+                  </thead>
+                  <tbody class="menu-tbody">
+                    {% for topping in pizza_toppings %}
+                      <tr>
+                        <th>{{ topping.name }}</th>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="row justify-content-center">
+              <h1 class="display-4 title">Sub toppings</h1>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-2" style="padding: 0">
+                <table class="table menu-table">
+                  <thead class="menu-thead">
+                    <tr>
+                      <th>Topping name</th>
+                    </tr>
+                  </thead>
+                  <tbody class="menu-tbody">
+                    {% for topping in sub_toppings %}
+                      <tr>
+                        <th>{{ topping.name }}</th>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

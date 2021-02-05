@@ -1,0 +1,75 @@
+{% extends 'orders/base.html' %}
+
+
+{% block body %}
+  <div class="container">
+    <h1 class="title section-border">Shopping cart:</h1>
+
+    {% if cart_items %}
+      <table class="table table-sm shopping-cart-table">
+        <thead>
+          <tr>
+            <th scope="col">Item name</th>
+            <th scope="col">Toppings</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th></th>
+            <th scope="col">Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart_items %}
+            <tr>
+              {% if item.menu_item.shape %}
+                <td scope="row">{{ item.menu_item.shape }} {{ item.menu_item.size }} {{ item.menu_item.name }} {{ item.menu_item.type }}</td>
+              {% else %}
+                <td scope="row">{{ item.menu_item.size }} {{ item.menu_item.name }} {{ item.menu_item.type }}</td>
+              {% endif %}
+              {% if item.toppings %}
+                <td scope="row">{{ item.toppings }}</td>
+              {% else %}
+                <td scope="row">-</td>
+              {% endif %}
+              <td scope="row">${{ item.menu_item.price }}</td>
+              <td scope="row">{{ item.quantity }}x</td>
+              <td scope="row">
+                <span data-order-item-id="{{ item.menu_item.id }}" data-order-item-toppings="{{ item.toppings }}" data-action="remove" class="decrease-quantity update-item">
+                  <a href="" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Decrease">
+                    <i class="fas fa-minus"></i>
+                  </a>
+                </span>
+                <span data-order-item-id="{{ item.menu_item.id }}" data-order-item-toppings="{{ item.toppings }}" data-action="add" class="increase-quantity update-item">
+                  <a href="" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Increase">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </span>
+              </td>
+              <td scope="row">${{ item.getItemTotalCost }}</td>
+              <td scope="row">
+                <span class="remove-item-link">
+                  <a href="{% url 'removeItem' item.id %}" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Delete">
+                    <i class="fas fa-trash-alt"></i>
+                  </a>
+                </span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h1 class="title">Total: <b>${{ cart_total_cost }}</b></h1>
+      <a href="{% url 'placeOrder' %}">
+        <div class="btn-large success">Place an order</div>
+      </a>
+      <a href="{% url 'order' %}">
+        <div class="btn-large danger">Go to order</div>
+      </a>
+    {% else %}
+      <p class="lead back-to-order">Your cart is empty, go to <a href="{% url 'order' %}">order menu</a><br>to add some products.</p>
+
+    {% endif %}
+  </div>
+{% endblock %}

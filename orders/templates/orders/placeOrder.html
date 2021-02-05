@@ -1,0 +1,88 @@
+{% extends 'orders/base.html' %}
+
+{% block body %}
+<div class="container">
+  <h1 class="title section-border">Your order:</h1>
+
+  <table class="table table-sm shopping-cart-table">
+    <thead>
+      <tr>
+        <th scope="col">Item name</th>
+        <th scope="col">Toppings</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+        <tr>
+          {% if item.menu_item.shape %}
+            <td scope="row">{{ item.menu_item.shape }} {{ item.menu_item.size }} {{ item.menu_item.name }} {{ item.menu_item.type }}</td>
+          {% else %}
+            <td scope="row">{{ item.menu_item.size }} {{ item.menu_item.name }} {{ item.menu_item.type }}</td>
+          {% endif %}
+          {% if item.toppings %}
+            <td scope="row">{{ item.toppings }}</td>
+          {% else %}
+            <td scope="row">-</td>
+          {% endif %}
+          <td scope="row">${{ item.menu_item.price }}</td>
+          <td scope="row">{{ item.quantity }}x</td>
+          <td scope="row">${{ item.getItemTotalCost }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h1 class="title">Total: <b>${{ cart_total_cost }}</b></h1>
+
+  <hr>
+
+  <h1 class="title section-border">Delivery informations:</h1>
+
+  <form class="shipping-address-form" method="POST" action="{% url 'confirmOrder' %}">
+    {% csrf_token %}
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="address">Address:</label>
+        <input type="text" class="form-control" id="address" autocomplete="off" name="address">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="apartment-number">Apartment number:</label>
+        <input type="text" class="form-control" id="apartment-number" autocomplete="off" name="apartment_number">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label for="city">City:</label>
+        <input type="text" class="form-control" id="city" autocomplete="off" name="city">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="state">State:</label>
+        <input type="text" class="form-control" id="state" autocomplete="off" name="state">
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="postal-code">Postal code:</label>
+        <input type="text" class="form-control" id="postal-code" autocomplete="off" name="postal_code">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label for="city">Phone number:</label>
+        <input type="text" class="form-control" id="phone_number" autocomplete="off" name="phone_number">
+      </div>
+    </div>
+
+    <hr>
+
+    <h1 class="display-4 title">Are you sure you want to confirm this order?</h1>
+    <button class="btn-large success" type="submit">Confirm order</button>
+
+    <a href="{% url 'shopping' %}">
+      <div class="btn-large danger">Back to shopping cart</div>
+    </a>
+  </form>
+</div>
+{% endblock %}

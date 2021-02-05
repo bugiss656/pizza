@@ -1,0 +1,488 @@
+{% extends 'orders/base.html' %}
+
+{% block body %}
+<div class="container">
+
+  <div id="sticky-navbar" class="justify-content-center">
+    <ul class="nav nav-pills mb-3 justify-content-center menu-nav" id="pills-tab">
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pizza" href="#pills-pizza" role="tab" aria-controls="pills-pizza" aria-selected="true">Pizza</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="subs" href="#pills-subs" role="tab" aria-controls="pills-subs" aria-selected="false">Subs</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="othersubs" href="#pills-othersubs" role="tab" aria-controls="pills-othersubs" aria-selected="false">Other subs</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="pasta" href="#pills-pasta" role="tab" aria-controls="pills-pasta" aria-selected="true">Pasta</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="salads" href="#pills-salads" role="tab" aria-controls="pills-salads" aria-selected="true">Salads</a>
+      </li>
+      <li class="nav-item">
+        <a class="menu-nav-link" id="dinners" href="#pills-dinnerplatters" role="tab" aria-controls="pills-dinnerplatters" aria-selected="true">Dinner platters</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="accordion" id="order-accordion">
+    <h1 id="pizza-header" class="display-4 title">Pizza</h1>
+    {% for pizza in rgl_sm_pizza %}
+      <div class="panel">
+        <div data-item-type="{{ pizza.type }}" data-item-id="{{ pizza.id }}" id="{{ pizza.type }}-{{ pizza.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ pizza.shape }}-{{ pizza.id }}-collapse">
+          <div class="item-name">
+            {{ pizza.shape }} {{ pizza.size }} {{ pizza.name }} {{ pizza.type }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ pizza.price }}
+          </div>
+        </div>
+        <div id="{{ pizza.shape }}-{{ pizza.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="pizza-toppings">
+                {% if pizza.toppings_number != 0 %}
+                  <p class="lead">Toppings:</p>
+                  {% for topping in pizza_toppings %}
+                    <div class="form-check">
+                      <input data-toppings-limit="{{ pizza.toppings_number }}" type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" value="{{ topping.name }}">
+                      <label for="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" class="form-check-label">{{ topping.name }}</label>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <div data-order-item-id="{{ pizza.id }}" data-order-item-type="{{ pizza.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</div>
+                  <div id="spinner-{{ pizza.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for pizza in rgl_lg_pizza %}
+      <div class="panel">
+        <div data-item-type="{{ pizza.type }}" data-item-id="{{ pizza.id }}" id="{{ pizza.type }}-{{ pizza.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ pizza.shape }}-{{ pizza.id }}-collapse">
+          <div class="item-name">
+            {{ pizza.shape }} {{ pizza.size }} {{ pizza.name }} {{ pizza.type }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ pizza.price }}
+          </div>
+        </div>
+
+        <div id="{{ pizza.shape }}-{{ pizza.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="pizza-toppings">
+                {% if pizza.toppings_number != 0 %}
+                  <p class="lead">Toppings:</p>
+                  {% for topping in pizza_toppings %}
+                    <div class="form-check">
+                      <input data-toppings-limit="{{ pizza.toppings_number }}" type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" value="{{ topping.name }}">
+                      <label for="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" class="form-check-label">{{ topping.name }}</label>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ pizza.id }}" data-order-item-type="{{ pizza.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ pizza.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for pizza in scln_sm_pizza %}
+      <div class="panel">
+        <div data-item-type="{{ pizza.type }}" data-item-id="{{ pizza.id }}" id="{{ pizza.type }}-{{ pizza.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ pizza.shape }}-{{ pizza.id }}-collapse">
+          <div class="item-name">
+            {{ pizza.shape }} {{ pizza.size }} {{ pizza.name }} {{ pizza.type }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ pizza.price }}
+          </div>
+        </div>
+
+        <div id="{{ pizza.shape }}-{{ pizza.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="pizza-toppings">
+                {% if pizza.toppings_number != 0 %}
+                  <p class="lead">Toppings:</p>
+                  {% for topping in pizza_toppings %}
+                    <div class="form-check">
+                      <input data-toppings-limit="{{ pizza.toppings_number }}" type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" value="{{ topping.name }}">
+                      <label for="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" class="form-check-label">{{ topping.name }}</label>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ pizza.id }}" data-order-item-type="{{ pizza.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ pizza.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for pizza in scln_lg_pizza %}
+      <div class="panel">
+        <div data-item-type="{{ pizza.type }}" data-item-id="{{ pizza.id }}" id="{{ pizza.type }}-{{ pizza.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ pizza.shape }}-{{ pizza.id }}-collapse">
+          <div class="item-name">
+            {{ pizza.shape }} {{ pizza.size }} {{ pizza.name }} {{ pizza.type }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ pizza.price }}
+          </div>
+        </div>
+
+        <div id="{{ pizza.shape }}-{{ pizza.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="pizza-toppings">
+                {% if pizza.toppings_number != 0 %}
+                  <p class="lead">Toppings:</p>
+                  {% for topping in pizza_toppings %}
+                    <div class="form-check">
+                      <input data-toppings-limit="{{ pizza.toppings_number }}" type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" value="{{ topping.name }}">
+                      <label for="{{ topping.name }}-{{ topping.id }}-{{ pizza.id }}" class="form-check-label">{{ topping.name }}</label>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ pizza.id }}" data-order-item-type="{{ pizza.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ pizza.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <h1 id="sub-header" class="display-4 title">Sub</h1>
+    {% for sub in sm_sub %}
+      <div class="panel">
+        <div data-item-type="{{ sub.type }}" data-item-id="{{ sub.id }}" id="{{ sub.type }}-{{ sub.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ sub.size }}-{{ sub.id }}-collapse">
+          <div class="item-name">
+            {{ sub.size }} {{ sub.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ sub.price }}
+          </div>
+        </div>
+
+        <div id="{{ sub.size }}-{{ sub.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="sub-toppings">
+                <p class="lead">Toppings:</p>
+                {% for topping in sub_toppings %}
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ sub.id }}" value="{{ topping.name }}">
+                    <label for="{{ topping.name }}-{{ topping.id }}-{{ sub.id }}" class="form-check-label">{{ topping.name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ sub.id }}" data-order-item-type="{{ sub.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ sub.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for sub in lg_sub %}
+      <div class="panel">
+        <div data-item-type="{{ sub.type }}" data-item-id="{{ sub.id }}" id="{{ sub.type }}-{{ sub.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ sub.size }}-{{ sub.id }}-collapse">
+          <div class="item-name">
+            {{ sub.size }} {{ sub.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ sub.price }}
+          </div>
+        </div>
+
+        <div id="{{ sub.size }}-{{ sub.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="sub-toppings">
+                <p class="lead">Toppings:</p>
+                {% for topping in sub_toppings %}
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ sub.id }}" value="{{ topping.name }}">
+                    <label for="{{ topping.name }}-{{ topping.id }}-{{ sub.id }}" class="form-check-label">{{ topping.name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ sub.id }}" data-order-item-type="{{ sub.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ sub.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <h1 id="othersub-header" class="display-4 title">Other sub</h1>
+    {% for othersub in other_sm_sub %}
+      <div class="panel">
+        <div data-item-type="{{ othersub.type }}" data-item-id="{{ othersub.id }}" id="{{ othersub.type }}-{{ othersub.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ othersub.size }}-{{ othersub.id }}-collapse">
+          <div class="item-name">
+            {{ othersub.size }} {{ othersub.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ othersub.price }}
+          </div>
+        </div>
+
+        <div id="{{ othersub.size }}-{{ othersub.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="sub-toppings">
+                <p class="lead">Toppings:</p>
+                {% for topping in sub_toppings %}
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ othersub.id }}" value="{{ topping.name }}">
+                    <label for="{{ topping.name }}-{{ topping.id }}-{{ othersub.id }}" class="form-check-label">{{ topping.name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ othersub.id }}" data-order-item-type="{{ othersub.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ othersub.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for othersub in other_lg_sub %}
+      <div class="panel">
+        <div data-item-type="{{ othersub.type }}" data-item-id="{{ othersub.id }}" id="{{ othersub.type }}-{{ othersub.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ othersub.size }}-{{ othersub.id }}-collapse">
+          <div class="item-name">
+            {{ othersub.size }} {{ othersub.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ othersub.price }}
+          </div>
+        </div>
+
+        <div id="{{ othersub.size }}-{{ othersub.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="sub-toppings">
+                <p class="lead">Toppings:</p>
+                {% for topping in sub_toppings %}
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ othersub.id }}" value="{{ topping.name }}">
+                    <label for="{{ topping.name }}-{{ topping.id }}-{{ othersub.id }}" class="form-check-label">{{ topping.name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ othersub.id }}" data-order-item-type="{{ othersub.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ othersub.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <h1 id="pasta-header" class="display-4 title">Pasta</h1>
+    {% for pasta in pasta %}
+      <div class="panel">
+        <div data-item-type="{{ pasta.type }}" data-item-id="{{ pasta.id }}" id="{{ pasta.type }}-{{ pasta.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ pasta.type }}-{{ pasta.id }}-collapse">
+          <div class="item-name">
+            {{ pasta.size }} {{ pasta.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ pasta.price }}
+          </div>
+        </div>
+
+        <div id="{{ pasta.type }}-{{ pasta.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="sub-toppings">
+                <p class="lead">Toppings:</p>
+                {% for topping in sub_toppings %}
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ pasta.id }}" value="{{ topping.name }}">
+                    <label for="{{ topping.name }}-{{ topping.id }}-{{ pasta.id }}" class="form-check-label">{{ topping.name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ pasta.id }}" data-order-item-type="{{ pasta.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ pasta.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <h1 id="salad-header" class="display-4 title">Salad</h1>
+    {% for salad in salad %}
+      <div class="panel">
+        <div data-item-type="{{ salad.type }}" data-item-id="{{ salad.id }}" id="{{ salad.type }}-{{ salad.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ salad.type }}-{{ salad.id }}-collapse">
+          <div class="item-name">
+            {{ salad.size }} {{ salad.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ salad.price }}
+          </div>
+        </div>
+
+        <div id="{{ salad.type }}-{{ salad.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="sub-toppings">
+                <p class="lead">Toppings:</p>
+                {% for topping in sub_toppings %}
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input topping-checkbox" id="{{ topping.name }}-{{ topping.id }}-{{ salad.id }}" value="{{ topping.name }}">
+                    <label for="{{ topping.name }}-{{ topping.id }}-{{ salad.id }}" class="form-check-label">{{ topping.name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ salad.id }}" data-order-item-type="{{ salad.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ salad.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <h1 id="dinner-header" class="display-4 title">Dinner</h1>
+    {% for dinner in sm_dinner %}
+      <div class="panel">
+        <div data-item-type="{{ dinner.type }}" data-item-id="{{ dinner.id }}" id="{{ dinner.type }}-{{ dinner.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ dinner.type }}-{{ dinner.id }}-collapse">
+          <div class="item-name">
+            {{ dinner.size }} {{ dinner.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ dinner.price }}
+          </div>
+        </div>
+
+        <div id="{{ dinner.type }}-{{ dinner.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ dinner.id }}" data-order-item-type="{{ dinner.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ dinner.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for dinner in lg_dinner %}
+      <div class="panel">
+        <div data-item-type="{{ dinner.type }}" data-item-id="{{ dinner.id }}" id="{{ dinner.type }}-{{ dinner.id }}" class="panel-header order-item" data-toggle="collapse" data-target="#{{ dinner.type }}-{{ dinner.id }}-collapse">
+          <div class="item-name">
+            {{ dinner.size }} {{ dinner.name }}
+          </div>
+          <div class="item-description">
+
+          </div>
+          <div class="item-price">
+            ${{ dinner.price }}
+          </div>
+        </div>
+
+        <div id="{{ dinner.type }}-{{ dinner.id }}-collapse" class="collapse" data-parent="#order-accordion">
+          <div class="panel-body">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="add-to-cart-group">
+                <div class="row">
+                  <button data-order-item-id="{{ dinner.id }}" data-order-item-type="{{ dinner.type }}" data-action="add" class="btn-small success add-to-cart loading-content">Add to cart</button>
+                  <div id="spinner-{{ dinner.id }}" class="loading-spinner"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

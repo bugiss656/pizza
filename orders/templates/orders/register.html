@@ -1,0 +1,58 @@
+{% extends 'orders/base.html' %}
+
+{% block body %}
+  <div class="container">
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="row justify-content-center">
+        <i class="fas fa-user-plus"></i>
+      </div>
+
+      <div class="row justify-content-center">
+        <h1 class="register-header">Register</h1>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">Username</label>
+          <input type="text" class="form-input" autocomplete="off" spellcheck="false" name="username">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">Password</label>
+          <input type="password" class="form-input" autocomplete="off" name="password1">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">Confirm password</label>
+          <input type="password" class="form-input" autocomplete="off" name="password2">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">First name</label>
+          <input type="text" class="form-input" autocomplete="off" spellcheck="false" name="first_name">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">Last name</label>
+          <input type="text" class="form-input" autocomplete="off" spellcheck="false" name="last_name">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">Email</label>
+          <input type="text" class="form-input" autocomplete="off" spellcheck="false" name="email">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <input class="btn-large success" type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+
+{% endblock %}

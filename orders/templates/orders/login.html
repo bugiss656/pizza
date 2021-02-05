@@ -1,0 +1,32 @@
+{% extends 'orders/base.html' %}
+
+{% block body %}
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row justify-content-center">
+        <i class="fas fa-users"></i>
+      </div>
+
+      <div class="row justify-content-center">
+        <h1 class="login-header">Login</h1>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-username">Username</label>
+          <input type="text" class="form-input" id="login-username" autocomplete="off" spellcheck="false" name="login-username">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="form-group col-sm-4">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" class="form-input" id="login-password" autocomplete="off" name="login-password">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <input type="submit" class="btn-large success" value="Login">
+      </div>
+    </form>
+  </div>
+{% endblock %}

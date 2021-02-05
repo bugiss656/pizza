@@ -1,0 +1,58 @@
+{% extends 'orders/base.html' %}
+
+{% block body %}
+  <div class="container">
+    <div class="accordion" id="orders-view-accordion">
+      <h1 class="display-4 title">Orders to complete:</h1>
+      {% if orders %}
+        {% for order in orders %}
+          <div class="panel">
+            <div class="order-panel-header" data-toggle="collapse" data-target="#order-{{ order.id }}">
+              <div class="order-title">
+                Order #{{ order.id }}: {{ order.user }} - {{ order.order_time }}
+              </div>
+            </div>
+
+            <div id="order-{{ order.id }}" class="collapse" data-parent="#orders-view-accordion">
+              <div class="panel-body">
+                <div class="order-item-section">
+                  <p class="section-header section-border"><b>Order items:</b></p>
+                  <div class="section-body">
+                    <ul>
+                      {% for item in order.orderitem_set.all %}
+                        <li>{{ item.quantity }}x{% if item.menu_item.shape %} {{ item.menu_item.shape }} {% endif %} {{ item.menu_item.size }} {{ item.menu_item.name }} {{ item.menu_item.type }}{% if item.toppings %} - toppings: {{ item.toppings }}{% endif %}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                <div class="order-item-section">
+                  <p class="section-header section-border"><b>Shipping informations:</b></p>
+                  <div class="section-body">
+                    {% for address in order.shippingaddress_set.all %}
+                      <p>Customer: {{ address.user.first_name }} {{ address.user.last_name }}</p>
+                      <p>Phone number: {{ address.phone_number }}</p>
+                      <p>Delivery address: {{ address.address }}/{{ address.apartment_number }}, {{ address.postal_code }} {{ address.city }}</p>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="order-item-section">
+                  <div class="section-header">
+                    <p class="section-border"><b>Total cost:</b></p>
+                  </div>
+                  <div class="section-body">
+                    <h3><b>${{ order.getCartTotalCost }}</b></h3>
+                  </div>
+                </div>
+                <a href="{% url 'deleteOrder' order.id %}">
+                  <button class="btn-large success">Order completed</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="lead">There's no new orders</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
